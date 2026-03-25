@@ -31,13 +31,15 @@ try:
     # Select the mailbox (inbox)
     mail.select('inbox')
     
-    # Search for emails from the specified sender, sorted by date descending
-    # Gmail supports SORT
-    status, data = mail.sort('(DATE)', 'UTF-8', 'FROM', sender)
+    # Search for emails from the specified sender
+    status, data = mail.search(None, 'FROM', sender)
     
     if status == 'OK' and data[0]:
-        # Get the most recent email ID
-        latest_email_id = data[0].split()[-1]
+        # Get the message IDs
+        ids = data[0].split()
+        if ids:
+            # The most recent email has the highest ID
+            latest_email_id = max(ids, key=int)
         
         # Fetch the email
         status, msg_data = mail.fetch(latest_email_id, '(RFC822)')
@@ -63,13 +65,16 @@ try:
             # Extract links
             links = extract_links(body)
             
+            # Filter to only include links starting with 'https://simplify.jobs/p/'
+            links = [link for link in links if link.startswith('https://simplify.jobs/p/')]
+            
             # Print the links
             if links:
                 print("Extracted links:")
                 for link in links:
                     print(link)
             else:
-                print("No HTTP/HTTPS links found in the email body.")
+                print("No relevant links found in the email body.")
         else:
             print("Failed to fetch the email.")
     else:
