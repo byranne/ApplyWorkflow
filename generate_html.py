@@ -36,6 +36,11 @@ def generate_html_dashboard(jobs_list):
             width: 300px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
         }}
+        .card.completed {{
+            background-color: #2e2e2e;
+            opacity: 0.7;
+            border-left: 4px solid #4caf50;
+        }}
         .card h2 {{
             margin-top: 0;
             color: #ffffff;
@@ -90,6 +95,11 @@ def generate_html_dashboard(jobs_list):
                 if (status) {
                     status.textContent = 'Copied!';
                     setTimeout(function() { status.textContent = ''; }, 1500);
+                }
+                // Mark the card as completed
+                var card = button.closest('.card');
+                if (card) {
+                    card.classList.add('completed');
                 }
             }).catch(function(err) {
                 var status = button.nextElementSibling;
