@@ -4,7 +4,7 @@ I built a script that enhances my workflow when applying to internships on SWELi
 
 Using the description you talor your resume accordingly. 
 
-The organizeResume script helps me quickly rename my resume and archive past resumes I used in a seperate folder. Since I download my pdf on overleaf, the script takes the latest pdf downloaded in my downloads folder moves it to the done folder with the correct name and then archives my old one. I do this because I make my resume changes in LATEX on Overleaf so it speeds up my workflow.
+The organizeResume script helps me quickly rename my resume and archive past resumes I used in a seperate folder. Because I make my resume changes in LATEX on Overleaf, the script speeds up my workflow by taking the latest pdf downloaded in my downloads folder and moving it to the done folder with the correct name and then archives my old one. When the script is done we simply submit resume in the done folder to the job posting.
 
 
 ## Features
