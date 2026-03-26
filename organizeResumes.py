@@ -12,7 +12,7 @@ def get_unique_resume_name(resume_done, archived_resumes):
             continue
         
         # Format the filename
-        resume_filename = f"Bryan_Wong_Resume_{company_name}.pdf"
+        resume_filename = f"First_Last_Resume_{company_name}.pdf"
         resume_done_path = resume_done / resume_filename
         archived_path = archived_resumes / resume_filename
         
