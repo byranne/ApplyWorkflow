@@ -1,6 +1,6 @@
 # SWEList Application Workflow
 
-I built a script that enhances my workflow when applying to internships on SWEList. SWEList sends out an email everyday with many jobs. This script scrapes through the latest email for the day and collects all the job links only. It then filters through the postings disregarding the apprenticeships, fulltime, and grad only positions. It generates an Html file that details the title of a position, provides the specific link, and a copyable description of a role. 
+I built a script that enhances my workflow when applying to internships on SWEList. This script scrapes through the latest email for the day and collects all the job links only. It then filters through the postings disregarding the apprenticeships, fulltime, and grad only positions. It generates an Html file that details the title of a position, provides the specific link, and a copyable description of a role. 
 
 Using the description you talor your resume accordingly. 
 
@@ -49,7 +49,7 @@ python3 organizeResumes.py
 ```
 - Finds most recent PDF in Downloads
 - Prompts for company name
-- Saves as `Bryan_Wong_Resume_CompanyName.pdf` in ResumeDone
+- Saves as `First_Last_Resume_CompanyName.pdf` in ResumeDone
 - Moves old resumes to ArchivedResumes
 - Detects naming conflicts and prompts for alternatives
 
@@ -82,6 +82,6 @@ python3 organizeResumes.py
 ## Notes
 
 - Job scraping includes 1-second delays between pages to avoid server strain
-- Resumes are named `Bryan_Wong_Resume_{CompanyName}.pdf` for easy organization
+- Resumes are named `First_Last_Resume_{CompanyName}.pdf` for easy organization
 - All filters are based on job **title** keywords to avoid false positives from company bios
 - Copies are case-insensitive for robustness
