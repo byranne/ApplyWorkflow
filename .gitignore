@@ -1,0 +1,10 @@
+# Python cache files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Auto-generated script outputs
+Today_Jobs.html
+
+# Environment variables / secrets (Good practice if you ever use a .env file for your App Password)
+.env
