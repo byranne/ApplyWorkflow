@@ -15,46 +15,34 @@ def scrape_and_filter_job(url):
         # Parse with BeautifulSoup
         soup = BeautifulSoup(response.content, 'html.parser')
         
+        # Remove navbar pollution: strip script, style, header, footer, nav, and aside tags
+        for tag in soup.find_all(['script', 'style', 'header', 'footer', 'nav', 'aside']):
+            tag.decompose()
+        
+        # Extract title
+        page_title = soup.title.string.strip() if soup.title else "No Title"
+        
         # Extract visible text
-        text = soup.get_text()
+        text = soup.get_text(separator=' ')
         
         # Clean the text: strip extra whitespace and convert to lowercase
         cleaned_text = ' '.join(text.split()).lower()
         
-        # Tier 1 Filter: Absolute Rejections
-        tier1_keywords = ['apprenticeship', 'full-time', 'full time']
-        for kw in tier1_keywords:
-            if kw in cleaned_text:
-                print(f"Rejected: Contains '{kw}'")
-                return None
-        
-        # Tier 2 Filter: Grad-Student Check
-        grad_keywords = ['master', "master's", 'ms ', 'phd', 'ph.d']
-        undergrad_keywords = ['bachelor', 'bs ', 'b.s', 'undergrad']
-        
-        has_grad = any(kw in cleaned_text for kw in grad_keywords)
-        has_undergrad = any(kw in cleaned_text for kw in undergrad_keywords)
-        
-        if has_grad and not has_undergrad:
-            print("Skipping: Grad-only role")
-            return None
-        
-        # If passes all filters, return the cleaned text
-        return cleaned_text
+        # FILTER: title exclusion keywords
+        exclusion_keywords = ['apprentice', 'graduate', 'phd', 'ph.d', 'master', 'full-time', 'full time']
+        title_lower = page_title.lower()
+
+        for keyword in exclusion_keywords:
+            if keyword in title_lower:
+                print(f"Skipping: {keyword} found in title")
+                return None, None
+
+        # If no exclusion keywords in title, accept as valid internship
+        return page_title, cleaned_text
     
     except requests.RequestException as e:
         print(f"Network error: {e}")
-        return None
+        return None, None
     except Exception as e:
         print(f"Error: {e}")
-        return None
-
-if __name__ == "__main__":
-    # Test the function with a sample URL
-    # Replace with a real job URL from simplify.jobs for actual testing
-    test_url = "https://simplify.jobs/p/4475bfac-4218-4b36-9bec-5ebb2c6694a0/Degree-Apprenticeship-in-Data--AI?utm_source=swelist"  # Simple test page; change to a real job URL
-    result = scrape_and_filter_job(test_url)
-    if result:
-        print("Test passed. Extracted text preview:", result[:200] + "...")
-    else:
-        print("Test filtered out or error occurred.")
+        return None, None
