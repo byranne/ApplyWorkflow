@@ -74,12 +74,38 @@ def generate_html_dashboard(jobs_list):
         <div class="card">
             <h2>{html.escape(title)}</h2>
             <a href="{html.escape(url)}" target="_blank">{html.escape(url)}</a>
-            <button onclick="navigator.clipboard.writeText('{description_escaped}')">Copy Description</button>
+            <button class="copy-btn" data-desc="{description_escaped}">Copy Description</button>
+            <span class="copy-status" style="margin-left: 8px; color: #4caf50; font-size: 0.9em;"></span>
         </div>
 """
 
     html_content += """
     </div>
+    <script>
+        function copyDescription(button) {
+            var desc = button.getAttribute('data-desc');
+            if (!desc) return;
+            navigator.clipboard.writeText(desc).then(function() {
+                var status = button.nextElementSibling;
+                if (status) {
+                    status.textContent = 'Copied!';
+                    setTimeout(function() { status.textContent = ''; }, 1500);
+                }
+            }).catch(function(err) {
+                var status = button.nextElementSibling;
+                if (status) {
+                    status.textContent = 'Copy failed';
+                }
+                console.error('Clipboard copy failed', err);
+            });
+        }
+
+        document.querySelectorAll('.copy-btn').forEach(function(button) {
+            button.addEventListener('click', function() {
+                copyDescription(this);
+            });
+        });
+    </script>
 </body>
 </html>
 """
