@@ -1,6 +1,11 @@
-# Autoapply
+# SWEList Application Workflow
 
-A Python automation suite for managing internship job applications from email to dashboard.
+I built a script that enhances my workflow when applying to internships on SWEList. SWEList sends out an email everyday with many jobs. This script scrapes through the latest email for the day and collects all the job links only. It then filters through the postings disregarding the apprenticeships, fulltime, and grad only positions. It generates an Html file that details the title of a position, provides the specific link, and a copyable description of a role. 
+
+Using the description you talor your resume accordingly. 
+
+The organizeResume script helps me quickly rename my resume and archive past resumes I used in a seperate folder. Since I download my pdf on overleaf, the script takes the latest pdf downloaded in my downloads folder moves it to the done folder with the correct name and then archives my old one. I do this because I make my resume changes in LATEX on Overleaf so it speeds up my workflow.
+
 
 ## Features
 
