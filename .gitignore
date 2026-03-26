@@ -8,3 +8,6 @@ Today_Jobs.html
 
 # Environment variables / secrets (Good practice if you ever use a .env file for your App Password)
 .env
+
+# macOS system files
+.DS_Store
